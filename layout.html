@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mi Portafolio</title>
-    <!-- Estilos principales -->
+    <title>MiPortafolio</title>
     <link rel="stylesheet" href="css/oneui.min.css" />
     <link rel="stylesheet" href="css/themes/amethyst.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div
@@ -15,12 +15,21 @@
     >
       <!-- Barra lateral -->
       <nav id="sidebar">
-        <div class="content-header">
+        <div
+          class="content-header d-flex align-items-center justify-content-between"
+        >
           <a class="fw-semibold text-dual" href="#">
             <span class="fs-5 tracking-wider"
-              >Mi<span class="fw-normal">Portafolio</span></span
+              >Mi <span class="fw-normal">Portafolio</span></span
             >
           </a>
+          <!-- Botón para cerrar el menú lateral (solo visible en móviles) -->
+          <button
+            class="btn btn-sm btn-alt-secondary d-lg-none"
+            onclick="toggleMobileSidebar()"
+          >
+            <i class="fa fa-fw fa-times"></i>
+          </button>
         </div>
         <div class="content-side">
           <ul class="nav-main">
@@ -50,7 +59,20 @@
                     href="javascript:void(0);"
                     onclick="handleClick('proyectos/web_scraping_dashboard.html', this)"
                   >
-                    <span class="nav-main-link-name">Scraping y Dashboards</span>
+                    <span class="nav-main-link-name"
+                      >Scraping y Dashboards</span
+                    >
+                  </a>
+                </li>
+                <li class="nav-main-item">
+                  <a
+                    class="nav-main-link"
+                    href="javascript:void(0);"
+                    onclick="handleClick('proyectos/dashboard-gestion-sla-helpdesk.html', this)"
+                  >
+                    <span class="nav-main-link-name"
+                      >Dashboard de Gestión SLA Helpdesk</span
+                    >
                   </a>
                 </li>
               </ul>
@@ -72,29 +94,44 @@
 
       <!-- Encabezado -->
       <header id="page-header">
-        <div class="content-header d-flex align-items-center justify-content-between">
-          <h5 class="fw-semibold mb-0">Mi Portafolio</h5>
+        <div
+          class="content-header d-flex align-items-center justify-content-between"
+        >
+          <!-- Botón de menú para móviles -->
+          <button
+            class="btn btn-sm btn-alt-secondary d-lg-none"
+            onclick="toggleMobileSidebar()"
+          >
+            <i class="fa fa-fw fa-bars"></i>
+          </button>
+          <!-- Título del portafolio -->
+          <h5 class="fw-semibold mb-0"></h5>
           <!-- Botones de contacto -->
           <div class="contact-buttons d-flex align-items-center">
-            <a href="https://www.linkedin.com/in/fernando-alexis-huaccharaqui-asca-58803722b/" target="_blank" class="contact-button linkedin">
-              <i class="fab fa-linkedin"></i> LinkedIn
+            <a
+              href="https://www.linkedin.com/in/fernando-alexis-huaccharaqui-asca-58803722b/"
+              target="_blank"
+              class="contact-button linkedin"
+            >
+              <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://wa.me/51933805027" target="_blank" class="contact-button whatsapp">
-              <i class="fab fa-whatsapp"></i> WhatsApp
+            <a
+              href="https://wa.me/51933805027"
+              target="_blank"
+              class="contact-button whatsapp"
+            >
+              <i class="fab fa-whatsapp"></i>
             </a>
             <a href="mailto:leo.5.97@hotmail.com" class="contact-button email">
-              <i class="fas fa-envelope"></i> Correo
+              <i class="fas fa-envelope"></i>
             </a>
           </div>
         </div>
       </header>
-      
 
       <!-- Contenedor principal -->
       <main id="main-container">
-        <div id="contenido-dinamico" class="content">
-          <!-- Aquí se cargará el contenido dinámico -->
-        </div>
+        <div id="contenido-dinamico" class="content"></div>
       </main>
 
       <!-- Pie de página -->
@@ -110,90 +147,6 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/oneui.core.min.js"></script>
     <script src="js/oneui.app.min.js"></script>
-
-    <script>
-      let currentPage = ""; // Variable global para rastrear la página actual
-
-      function handleClick(page, link) {
-        if (currentPage === page) {
-          return; // No recargar si la página ya está activa
-        }
-
-        cargarContenido(page);
-        currentPage = page; // Actualizar la página actual
-      }
-
-      function toggleSubmenu(link, page) {
-        const parentItem = link.parentElement;
-        const submenu = parentItem.querySelector(".nav-main-submenu");
-
-        if (submenu) {
-          parentItem.classList.toggle("open"); // Desplegar/contraer menú
-        }
-
-        if (currentPage !== page) {
-          cargarContenido(page); // Cargar contenido dinámico si no está ya activo
-          currentPage = page; // Actualizar página actual
-        }
-      }
-
-      function cargarContenido(url) {
-        fetch(url)
-          .then((response) => response.text())
-          .then((html) => {
-            document.getElementById("contenido-dinamico").innerHTML = html;
-          })
-          .catch((error) =>
-            console.error("Error al cargar el contenido:", error)
-          );
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        cargarContenido("index.html"); // Página inicial
-        currentPage = "index.html"; // Marcarla como activa
-      });
-    </script>
-    <style>
-        .contact-buttons {
-          display: flex;
-          gap: 1rem;
-        }
-      
-        .contact-button {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 1rem;
-          font-weight: 600;
-          color: white;
-          background: #007aff;
-          padding: 0.5rem 1rem;
-          border-radius: 5px;
-          text-decoration: none;
-          transition: all 0.3s ease;
-        }
-      
-        .contact-button i {
-          font-size: 1.2rem;
-        }
-      
-        .contact-button.linkedin {
-          background: #0a66c2;
-        }
-      
-        .contact-button.whatsapp {
-          background: #25d366;
-        }
-      
-        .contact-button.email {
-          background: #f39c12;
-        }
-      
-        .contact-button:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-      </style>
-      
+    <script src="js/scripts.js"></script>
   </body>
 </html>
